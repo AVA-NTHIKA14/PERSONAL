@@ -74,6 +74,8 @@
             color: #00AEEF;
             margin-top: 15px;
         }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sentiment/5.0.1/sentiment.min.js"></script>
+
     </style>
 </head>
 <body>
@@ -90,49 +92,43 @@
         <audio id="comfortMusic" src="comfort_music.mp3"></audio>
     </div>
     <script>
-        let responses = {
-            happy: ["😊 That's wonderful! Keep spreading joy!", "✨ Your happiness is contagious! Keep shining!", "😃 So glad to hear that! Keep smiling!"],
-            sad: ["🤗 You're strong! Here's a virtual hug!", "❤️ It's okay to feel this way. You're not alone!", "🌅 You're doing great! Tomorrow is a new day!"],
-            neutral: ["📝 Keep expressing yourself, you're doing great!", "💡 Your thoughts are valuable. Keep writing!", "🚀 Every day is a step forward! Keep going!"]
-        };
+       <script>
+    let responses = {
+        positive: ["😊 That's wonderful! Keep spreading joy!", "✨ Your happiness is contagious! Keep shining!", "😃 So glad to hear that! Keep smiling!"],
+        negative: ["🤗 You're strong! Here's a virtual hug!", "❤️ It's okay to feel this way. You're not alone!", "🌅 You're doing great! Tomorrow is a new day!"],
+        neutral: ["📝 Keep expressing yourself, you're doing great!", "💡 Your thoughts are valuable. Keep writing!", "🚀 Every day is a step forward! Keep going!"]
+    };
 
-        let contacts = ["+1234567890", "+9876976977"]; // Add your saved contacts
+    function analyzeEntry() {
+        let entryText = document.getElementById("journalEntry").value.trim();
+        let responseElement = document.getElementById("response");
 
-        function analyzeEntry() {
-            let entryText = document.getElementById("journalEntry").value.trim();
-            let responseElement = document.getElementById("response");
-            if (!entryText) {
-                alert("⚠️ Please write something before submitting.");
-                return;
-            }
-            if (entryText.includes("happy") || entryText.includes("joy")) {
-                responseElement.innerText = getRandomResponse("happy");
-            } else if (entryText.includes("sad") || entryText.includes("hectic")) {
-                responseElement.innerText = getRandomResponse("sad");
-            } else {
-                responseElement.innerText = getRandomResponse("neutral");
-            }
-        }
-        
-        function regenerateResponse() {
-            analyzeEntry();
+        if (!entryText) {
+            alert("⚠️ Please write something before submitting.");
+            return;
         }
 
-        function getRandomResponse(mood) {
-            let options = responses[mood];
-            return options[Math.floor(Math.random() * options.length)];
-        }
+        // Use Sentiment.js for AI emotion detection
+        let sentiment = new Sentiment();
+        let result = sentiment.analyze(entryText);
 
-        function playMusic() {
-            let music = document.getElementById("comfortMusic");
-            music.play();
-            alert("🎶 Playing your comfort zone music!");
-        }
+        console.log(result); // Debugging: Check sentiment analysis output in console
 
-        function connectWithCloseOnes() {
-            let phoneNumber = contacts[Math.floor(Math.random() * contacts.length)];
-            window.location.href = `tel:${phoneNumber}`;
+        if (result.score > 1) {
+            responseElement.innerText = getRandomResponse("positive");
+        } else if (result.score < -1) {
+            responseElement.innerText = getRandomResponse("negative");
+        } else {
+            responseElement.innerText = getRandomResponse("neutral");
         }
-    </script>
+    }
+
+    function getRandomResponse(mood) {
+        let options = responses[mood];
+        return options[Math.floor(Math.random() * options.length)];
+    }
+</script>
+
+ 
 </body>
 </html>
