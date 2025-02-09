@@ -3,156 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chengai-Personal Diary </title>
+    <title>Chengai - Personal Mental Support Diary</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background-color: #FAF3E0;
+            margin: 0;
         }
         .container {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             width: 80%;
+            max-width: 500px;
             background: white;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            text-align: center;
         }
         .logo {
-            width: 100px;
+            width: 120px;
             height: auto;
             margin-bottom: 15px;
         }
         h2 {
-            color: #333333;
-            font-size: 24px;
+            color: #333;
+            font-size: 22px;
             margin-bottom: 10px;
         }
         p {
-            color: #666666;
+            color: #555;
             font-size: 16px;
             margin-bottom: 15px;
         }
-        .entry-section {
-            flex: 2;
-            padding: 20px;
-        }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 150px;
             padding: 10px;
-            margin-bottom: 10px;
-        }
-        .mood-buttons input {
-            margin-right: 10px;
-            border: 1px solid #AAAAAA;
+            border: 1px solid #CCCCCC;
             border-radius: 10px;
             font-size: 14px;
             resize: none;
-            color: #333333;
+            color: #333;
+            background: #FFFBEA;
         }
         button {
-            padding: 10px;
-             padding: 12px;
-            font-size: 18px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
             color: white;
-            background-color: #6200EE;
+            background: linear-gradient(135deg, #FF9966, #FF5E62);
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-         button:hover {
-            background-color: #3700B3;
-        }
-        .entries-section {
-            flex: 1;
-            padding: 20px;
-            background: #eee;
-            overflow-y: auto;
-            max-height: 300px;
-        }
-        .entry {
-            background: white;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-        #responseMessage {
+            transition: 0.3s;
             margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #FF5E62, #FF9966);
+        }
+        #response {
+            font-size: 16px;
             font-weight: bold;
-            color: green;
+            color: #FF5E62;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="entry-section">
-            <img src="group 4.png" alt="App Logo" class="logo"
-            <h2>Hi, Username</h2>
-            <p>Tell about your day</p>
-            <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
-            <h4>Select Your Mood</h4>
-            <div class="mood-buttons">
-                <input type="radio" name="mood" value="Happy"> Happy
-                <input type="radio" name="mood" value="Sad"> Sad
-                <input type="radio" name="mood" value="Anxious"> Anxious
-            </div>
-            <button onclick="saveEntry()">Submit Entry</button>
-            <p id="responseMessage"></p>
-        </div>
-        <div class="entries-section">
-            <h2>Past Entries</h2>
-            <div id="pastEntries"></div>
-        </div>
+        <img src="logo.png" alt="Chengai Logo" class="logo">
+        <h2>Hi, Username</h2>
+        <p>Tell about your day</p>
+        <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
+        <button onclick="analyzeEntry()">Enter</button>
+        <p id="response"></p>
+        <button onclick="regenerateResponse()">Regenerate Response</button>
+        <button onclick="playMusic()">🎵 Play Comfort Music</button>
+        <button onclick="connectWithCloseOnes()">📞 Connect with Close Ones</button>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", loadEntries);
-        
-        function saveEntry() {
-            let entryText = document.getElementById("journalEntry").value;
-            let mood = document.querySelector("input[name='mood']:checked");
-            let date = new Date().toLocaleDateString();
-            let responseMessage = document.getElementById("responseMessage");
-
-            if (!entryText.trim() || !mood) {
-                alert("Please write something and select a mood.");
+        function analyzeEntry() {
+            let entryText = document.getElementById("journalEntry").value.trim();
+            let responseElement = document.getElementById("response");
+            if (!entryText) {
+                alert("Please write something before submitting.");
                 return;
             }
-
-            let entry = { date, text: entryText, mood: mood.value };
-            let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
-            entries.unshift(entry);
-            localStorage.setItem("journalEntries", JSON.stringify(entries));
-
-            document.getElementById("journalEntry").value = "";
-            mood.checked = false;
-            loadEntries();
-
-            // Display motivational response
-            if (mood.value === "Happy") {
-                responseMessage.innerText = "Great to see you happy! Keep spreading positivity! 😊";
-            } else if (mood.value === "Sad") {
-                responseMessage.innerText = "It's okay to feel sad. Remember, tough times pass. Stay strong! 💪";
-            } else if (mood.value === "Anxious") {
-                responseMessage.innerText = "Take a deep breath. Everything will be okay. You're not alone. 🌿";
+            if (entryText.includes("happy") || entryText.includes("joy")) {
+                responseElement.innerText = "That's wonderful! Keep spreading joy 😊";
+            } else if (entryText.includes("sad") || entryText.includes("hectic")) {
+                responseElement.innerText = "You're strong! Here's a virtual hug 🤗";
+            } else {
+                responseElement.innerText = "Keep expressing yourself, you're doing great!";
             }
         }
+        
+        function regenerateResponse() {
+            analyzeEntry();
+        }
 
-        function loadEntries() {
-            let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
-            let pastEntriesDiv = document.getElementById("pastEntries");
-            pastEntriesDiv.innerHTML = "";
-            
-            entries.forEach(entry => {
-                let entryDiv = document.createElement("div");
-                entryDiv.classList.add("entry");
-                entryDiv.innerHTML = `<strong>${entry.date}</strong><br>${entry.text}<br><em>Mood: ${entry.mood}</em>`;
-                pastEntriesDiv.appendChild(entryDiv);
-            });
+        function playMusic() {
+            alert("Playing your comfort zone music 🎵");
+            // Add logic to play user-selected music
+        }
+
+        function connectWithCloseOnes() {
+            alert("Connecting you with your close ones 📞");
+            // Add logic to connect with saved contacts
         }
     </script>
 </body>
 </html>
+
