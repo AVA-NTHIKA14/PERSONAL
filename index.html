@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journal Entry</title>
+    <title>Chengai-Personal Diary </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,21 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
         .entry-section {
             flex: 2;
             padding: 20px;
@@ -32,10 +47,25 @@
         }
         .mood-buttons input {
             margin-right: 10px;
+            border: 1px solid #AAAAAA;
+            border-radius: 10px;
+            font-size: 14px;
+            resize: none;
+            color: #333333;
         }
         button {
             padding: 10px;
+             padding: 12px;
+            font-size: 18px;
+            color: white;
+            background-color: #6200EE;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+         button:hover {
+            background-color: #3700B3;
         }
         .entries-section {
             flex: 1;
@@ -60,7 +90,9 @@
 <body>
     <div class="container">
         <div class="entry-section">
-            <h2>Today's Entry</h2>
+            <img src="group 4.png" alt="App Logo" class="logo"
+            <h2>Hi, Username</h2>
+            <p>Tell about your day</p>
             <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
             <h4>Select Your Mood</h4>
             <div class="mood-buttons">
