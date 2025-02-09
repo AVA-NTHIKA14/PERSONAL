@@ -82,26 +82,35 @@
         <h2>Hi, Username</h2>
         <p>Tell about your day</p>
         <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
-        <button onclick="analyzeEntry()">Enter</button>
+        <button onclick="analyzeEntry()">✨ Enter</button>
         <p id="response"></p>
-        <button onclick="regenerateResponse()">Regenerate Response</button>
+        <button onclick="regenerateResponse()">🔄 Regenerate Response</button>
         <button onclick="playMusic()">🎵 Play Comfort Music</button>
         <button onclick="connectWithCloseOnes()">📞 Connect with Close Ones</button>
+        <audio id="comfortMusic" src="comfort_music.mp3"></audio>
     </div>
     <script>
+        let responses = {
+            happy: ["😊 That's wonderful! Keep spreading joy!", "✨ Your happiness is contagious! Keep shining!", "😃 So glad to hear that! Keep smiling!"],
+            sad: ["🤗 You're strong! Here's a virtual hug!", "❤️ It's okay to feel this way. You're not alone!", "🌅 You're doing great! Tomorrow is a new day!"],
+            neutral: ["📝 Keep expressing yourself, you're doing great!", "💡 Your thoughts are valuable. Keep writing!", "🚀 Every day is a step forward! Keep going!"]
+        };
+
+        let contacts = ["+1234567890", "+0987654321"]; // Add your saved contacts
+
         function analyzeEntry() {
             let entryText = document.getElementById("journalEntry").value.trim();
             let responseElement = document.getElementById("response");
             if (!entryText) {
-                alert("Please write something before submitting.");
+                alert("⚠️ Please write something before submitting.");
                 return;
             }
             if (entryText.includes("happy") || entryText.includes("joy")) {
-                responseElement.innerText = "That's wonderful! Keep spreading joy 😊";
+                responseElement.innerText = getRandomResponse("happy");
             } else if (entryText.includes("sad") || entryText.includes("hectic")) {
-                responseElement.innerText = "You're strong! Here's a virtual hug 🤗";
+                responseElement.innerText = getRandomResponse("sad");
             } else {
-                responseElement.innerText = "Keep expressing yourself, you're doing great!";
+                responseElement.innerText = getRandomResponse("neutral");
             }
         }
         
@@ -109,15 +118,21 @@
             analyzeEntry();
         }
 
+        function getRandomResponse(mood) {
+            let options = responses[mood];
+            return options[Math.floor(Math.random() * options.length)];
+        }
+
         function playMusic() {
-            alert("Playing your comfort zone music 🎵");
+            let music = document.getElementById("comfortMusic");
+            music.play();
+            alert("🎶 Playing your comfort zone music!");
         }
 
         function connectWithCloseOnes() {
-            alert("Connecting you with your close ones 📞");
+            let phoneNumber = contacts[Math.floor(Math.random() * contacts.length)];
+            window.location.href = `tel:${phoneNumber}`;
         }
     </script>
 </body>
 </html>
-
-
