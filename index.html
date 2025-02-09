@@ -11,8 +11,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #FAF3E0;
+            background-color: #121212; /* Dark background to match logo */
             margin: 0;
+            color: white; /* White text for readability */
         }
         .container {
             display: flex;
@@ -20,9 +21,9 @@
             align-items: center;
             width: 80%;
             max-width: 500px;
-            background: white;
+            background: #1E1E1E; /* Dark card background */
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             text-align: center;
         }
@@ -32,12 +33,12 @@
             margin-bottom: 15px;
         }
         h2 {
-            color: #333;
+            color: #00AEEF; /* Blue from logo */
             font-size: 22px;
             margin-bottom: 10px;
         }
         p {
-            color: #555;
+            color: #CCCCCC; /* Light grey for contrast */
             font-size: 16px;
             margin-bottom: 15px;
         }
@@ -45,19 +46,19 @@
             width: 100%;
             height: 150px;
             padding: 10px;
-            border: 1px solid #CCCCCC;
+            border: 1px solid #00AEEF; /* Blue border */
             border-radius: 10px;
             font-size: 14px;
             resize: none;
-            color: #333;
-            background: #FFFBEA;
+            color: white;
+            background: #2A2A2A;
         }
         button {
             width: 100%;
             padding: 12px;
             font-size: 16px;
             color: white;
-            background: linear-gradient(135deg, #FF9966, #FF5E62);
+            background: linear-gradient(135deg, #00AEEF, #005F99);
             border: none;
             border-radius: 10px;
             cursor: pointer;
@@ -65,19 +66,19 @@
             margin-top: 10px;
         }
         button:hover {
-            background: linear-gradient(135deg, #FF5E62, #FF9966);
+            background: linear-gradient(135deg, #005F99, #00AEEF);
         }
         #response {
             font-size: 16px;
             font-weight: bold;
-            color: #FF5E62;
+            color: #00AEEF;
             margin-top: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="logo.png" alt="Chengai Logo" class="logo">
+        <img src="logo.png" alt="Chengai Logo" class="logo"> <!-- Ensure this file exists -->
         <h2>Hi, Username</h2>
         <p>Tell about your day</p>
         <textarea id="journalEntry" placeholder="Write your thoughts here..."></textarea>
@@ -110,14 +111,13 @@
 
         function playMusic() {
             alert("Playing your comfort zone music 🎵");
-            // Add logic to play user-selected music
         }
 
         function connectWithCloseOnes() {
             alert("Connecting you with your close ones 📞");
-            // Add logic to connect with saved contacts
         }
     </script>
 </body>
 </html>
+
 
